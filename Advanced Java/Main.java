@@ -1,9 +1,11 @@
 import java.util.*;
-//import java.util.Map.Entry;
+import java.util.Map.Entry;
+import java.util.stream.Stream;
 
 public class Main {
     public static Bank bank = new Bank();
-    public static boolean Performing = true;
+    public static Extractor[] extractors = new Extractor[4];
+    public static boolean performing = true;
     public static void main(String[] args) {
         /*
         String[] words = new String[] {"tuk", "kut", "time"};
@@ -23,12 +25,17 @@ public class Main {
             System.out.println(i);
         }
         */
-        Extractor[] extractors = new Extractor[4];
-
+        /*
+        bank.setMoney(1000);
         for (int i = 0; i < extractors.length; i++) {
-            Extractor extractor = new Extractor();
-            extractor.setAmount((i + 1) * 5);
+            extractors[i] = new Extractor(i);
+            bank.updateCriticalAmount(extractors[i].getAmount());
         }
+
+        for (Extractor extractor : extractors) {
+            extractor.start();
+        }
+        */
     }
 
     public static HashMap<Integer, List<String>> convert(String[] array) {
@@ -53,7 +60,15 @@ public class Main {
         return new HashSet<Integer>(filtered.stream().map(x -> Integer.valueOf(x)).toList());
     }
 
-    public static void stopOperations() {
-
+    public static void stopPerforming() {
+        if (Stream.of(extractors).map(x -> !x.isRunning()).allMatch(x -> x)) {
+            for (int i = 0; i < extractors.length; i++) {
+                System.out.print("Thread #");
+                System.out.print(i);
+                System.out.print(" extracted ");
+                System.out.print(extractors[i].getAmount() * extractors[i].getTransactions());
+                System.out.println();
+            }
+        }
     }
 }

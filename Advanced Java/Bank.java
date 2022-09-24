@@ -1,15 +1,24 @@
 public class Bank {
-    private int balance;
+    private int money;
+    private int criticalAmount;
 
     public int getMoney() {
-        return balance;
+        return money;
     }
 
-    public void setMoney(int balance) {
-        this.balance = balance;
+    public void setMoney(int money) {
+        this.money = money;
     }
 
-    public void extractMoney(int balance) {
-        this.balance -= balance;
+    public synchronized void extractMoney(int money) {
+        this.money -= money;
+    }
+
+    public int getCriticalAmount() {
+        return criticalAmount;
+    }
+
+    public void updateCriticalAmount(int amount) {
+        criticalAmount += amount;
     }
 }
