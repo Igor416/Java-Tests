@@ -25,7 +25,6 @@ public class Main {
             System.out.println(i);
         }
         */
-        /*
         bank.setMoney(1000);
         for (int i = 0; i < extractors.length; i++) {
             extractors[i] = new Extractor(i);
@@ -35,7 +34,6 @@ public class Main {
         for (Extractor extractor : extractors) {
             extractor.start();
         }
-        */
     }
 
     public static HashMap<Integer, List<String>> convert(String[] array) {
@@ -60,7 +58,7 @@ public class Main {
         return new HashSet<Integer>(filtered.stream().map(x -> Integer.valueOf(x)).toList());
     }
 
-    public static void stopPerforming() {
+    public synchronized static void stopPerforming() {
         if (Stream.of(extractors).map(x -> !x.isRunning()).allMatch(x -> x)) {
             for (int i = 0; i < extractors.length; i++) {
                 System.out.print("Thread #");

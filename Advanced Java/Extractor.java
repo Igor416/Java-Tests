@@ -7,6 +7,7 @@ public class Extractor extends Thread {
     Extractor(int id) {
         ID = id;
         amount = (int)(-0.5 * id * id + 4 * id + 2);
+        System.out.println(amount);
         running = true;
     }
 
@@ -33,17 +34,13 @@ public class Extractor extends Thread {
             return;
         }
         bank.extractMoney(amount);
+        System.out.println(ID + " " + bank.getMoney());
         transactions++;
     }
 
     public void run() {
         while (running) {
-            try {
-                Thread.sleep(50);
-                extractAmount(Main.bank);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            extractAmount(Main.bank);
         }
     }
 }
